@@ -18,6 +18,7 @@ const serverlessConfiguration: AWS = {
     iam: {
       role: {
         statements: [{
+          Sid: "VisualEditor0",
           Effect: "Allow",
           Action: [
             "dynamodb:DescribeTable",
@@ -28,7 +29,7 @@ const serverlessConfiguration: AWS = {
             "dynamodb:UpdateItem",
             "dynamodb:DeleteItem",
           ],
-          Resource: "arn:aws:dynamodb:us-west-2:*:table/Users",
+          Resource: "arn:aws:dynamodb:eu-west-2:934431694114:table/user",
         }],
       },
     },
