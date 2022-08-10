@@ -6,13 +6,13 @@ export  const generateToken = (userInfo:User) => {
         return null;
     }
 
-    return sign(userInfo, process.env.JWT_SECRET, {
+    return sign(userInfo, "process.env.JWT_SECRET", {
         expiresIn: "1h",
     });
 };
 
 export const verifyToken = (username:string, token:string) => {
-    return verify(token, process.env.JWT_SECRET, (error, response) => {
+    return verify(token, "process.env.JWT_SECRET", (error, response) => {
         if (error) {
             return {
                 verified: false,

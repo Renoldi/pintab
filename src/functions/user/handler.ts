@@ -5,6 +5,7 @@ import usersService from '../../service'
 
 import { v4 } from "uuid";
 import { hashPass, verify } from "../../service/bcryptjs"
+import { generateToken } from "src/service/jwt";
 // import { generateToken } from "src/service/jwt";
 
 export const getAllUsers = middyfy(async (): Promise<APIGatewayProxyResult> => {
@@ -77,7 +78,7 @@ export const loginUser = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
         )
 
         const user = users[0]
-        const veri = await verify( event.body.password, user.password)
+        const veri = await verify(event.body.password, user.password)
         if (!veri) {
             return formatJSONResponse({
                 status: 500,
@@ -85,13 +86,11 @@ export const loginUser = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
             });
         }
 
-        // const token = await generateToken(user)
+        const token = generateToken({ ...user, password: '' })
 
         return formatJSONResponse({
-            user
+            "token": token
         });
-
-
     } catch (e) {
         return formatJSONResponse({
             status: 500,
