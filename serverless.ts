@@ -62,7 +62,7 @@ const serverlessConfiguration: AWS = {
       Users: {
         Type: "AWS::DynamoDB::Table",
         Properties: {
-          TableName: "Users",
+          TableName: "users",
           AttributeDefinitions: [
             {
               AttributeName: "id",

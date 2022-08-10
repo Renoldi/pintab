@@ -4,7 +4,7 @@ import User from "../model/User";
 
 export default class UserServerice {
 
-    private Tablename: string = "Users";
+    private Tablename: string = "users";
 
     constructor(private docClient: DocumentClient) { }
 
