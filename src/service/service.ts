@@ -26,10 +26,14 @@ export default class UserServerice {
     async loginUser(user: string): Promise<any> {
         const u = await this.docClient.query({
             TableName: this.Tablename,
-            KeyConditionExpression : 'name= :name',
+            IndexName: 'name_index',
+            KeyConditionExpression: '#name = :st',
             ExpressionAttributeValues: {
-                ":name": user,
-              },
+                ':st':user
+            },
+            ExpressionAttributeNames: {
+                '#name': 'name',
+            },
         }).promise()
         if (!u) {
             throw new Error("User does not exit");

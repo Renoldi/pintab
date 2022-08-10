@@ -62,14 +62,40 @@ const serverlessConfiguration: AWS = {
         Type: "AWS::DynamoDB::Table",
         Properties: {
           TableName: "Users",
-          AttributeDefinitions: [{
-            AttributeName: "id",
-            AttributeType: "S",
-          }],
-          KeySchema: [{
-            AttributeName: "id",
-            KeyType: "HASH"
-          },],
+          AttributeDefinitions: [
+            {
+              AttributeName: "id",
+              AttributeType: "S",
+            },
+            {
+              AttributeName: "name",
+              AttributeType: "S",
+            },
+          ],
+          KeySchema: [
+            {
+              AttributeName: "id",
+              KeyType: "HASH"
+            },
+
+          ],
+          GlobalSecondaryIndexes: [
+            {
+              IndexName: 'name_index',
+              KeySchema: [
+                {
+                  AttributeName: 'name',
+                  KeyType: 'HASH',
+                }
+              ],
+              Projection: {
+                "ProjectionType": "ALL"
+              },
+              ProvisionedThroughput: {                                // Only specified if using provisioned mode
+                "ReadCapacityUnits": 1, "WriteCapacityUnits": 1
+              }
+            }
+          ],
           ProvisionedThroughput: {
             ReadCapacityUnits: 1,
             WriteCapacityUnits: 1
