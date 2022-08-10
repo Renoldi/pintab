@@ -71,11 +71,13 @@ export const updateUser = middyfy(async (event: APIGatewayProxyEvent): Promise<A
 export const loginUser = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
     try {
-        const user = await usersService.loginUser(
+        const users = await usersService.loginUser(
             event.body.name
         )
 
-        if (!verify(event.body.password, user.password)) {
+        const user = users[0]
+        const veri = await verify( event.body.password, user.password)
+        if (!veri) {
             return formatJSONResponse({
                 status: 500,
                 message: "password incorrect"

@@ -23,8 +23,8 @@ export default class UserServerice {
         return user as User;
     }
 
-    async loginUser(user: string): Promise<any> {
-        const u = await this.docClient.query({
+    async loginUser(user: string): Promise<User[]> {
+        const users = await this.docClient.query({
             TableName: this.Tablename,
             IndexName: 'name_index',
             KeyConditionExpression: '#name = :st',
@@ -35,10 +35,10 @@ export default class UserServerice {
                 '#name': 'name',
             },
         }).promise()
-        if (!u) {
+        if (!users) {
             throw new Error("User does not exit");
         }
-        return u;
+        return users.Items as User[];
     }
 
     async getUser(id: string): Promise<User> {
