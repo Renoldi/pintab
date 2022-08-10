@@ -5,6 +5,7 @@ import usersService from '../../service'
 
 import { v4 } from "uuid";
 import { hashPass, verify } from "../../service/bcryptjs"
+// import { generateToken } from "src/service/jwt";
 
 export const getAllUsers = middyfy(async (): Promise<APIGatewayProxyResult> => {
     const users = await usersService.getAllUsers();
@@ -83,6 +84,8 @@ export const loginUser = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
                 message: "password incorrect"
             });
         }
+
+        // const token = await generateToken(user)
 
         return formatJSONResponse({
             user

@@ -29,18 +29,31 @@ export default class UserServerice {
             IndexName: 'name_index',
             KeyConditionExpression: '#name = :st',
             ExpressionAttributeValues: {
-                ':st':user
+                ':st': user
             },
             ExpressionAttributeNames: {
                 '#name': 'name',
             },
         }).promise()
         if (!users) {
-            throw new Error("User does not exit");
+            throw [];
         }
         return users.Items as User[];
     }
 
+    // async loginUser(name: string): Promise<User> {
+    //     const user = await this.docClient.get({
+    //         TableName: this.Tablename,
+    //         Key: {
+    //             name: name
+    //         }
+    //     }).promise()
+    //     if (!user.Item) {
+    //         throw new Error("User does not exit");
+    //     }
+    //     return user.Item as User;
+
+    // }
     async getUser(id: string): Promise<User> {
 
         const user = await this.docClient.get({
