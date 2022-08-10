@@ -96,3 +96,5 @@ Any tsconfig.json can be used, but if you do, set the environment variable `TS_N
 
 
 https://blog.logrocket.com/building-serverless-app-typescript/ 
+
+serverless create --template aws-nodejs-typescript --path "projectName"
